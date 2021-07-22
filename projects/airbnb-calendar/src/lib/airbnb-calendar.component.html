@@ -12,6 +12,7 @@
         >
           <path d="M2.414 7l5.293 5.293a1 1 0 01-1.414 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L2.414 7z" />
         </svg>
+        
         <span class="month-name">{{ calendar.title }}</span>
       </div>
       <div class="calendar-day-names">
@@ -35,7 +36,8 @@
           }"
           (click)="selectDay(i, 'primary')"
         >
-          {{ day.day }}
+          <div>{{ day.day.dayNumber }}</div>
+          <div class="places-left">פנוי : {{ day.day.freeSpace }}</div>
         </span>
       </div>
     </section>
@@ -74,7 +76,8 @@
           }"
           (click)="selectDay(i, 'secondary')"
         >
-          {{ day.day }}
+          <div>{{ day.day.dayNumber }}</div>
+          <div class="places-left">{{ day.day.freeSpace }} : פנוי</div>
         </span>
       </div>
     </section>
