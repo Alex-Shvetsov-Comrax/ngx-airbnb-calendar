@@ -1,0 +1,159 @@
+=unselectable
+  user-select: none
+
+$white: #ffffff
+$black: #000000
+$calendar-background: $white
+$calendar-width: 850px
+$calendar-height: fit-content
+$border-radius: 4px
+$box-shadow: 0 6px 10px rgba($black, .2)
+$day-name-color: #717171
+$day-color: #222222
+$day-disabled-color: #D6D6D6
+$day-included: #F7F7F7
+$day-border: #222222
+$border-default: #EAEDF3
+
+.is-disabled>.places-left
+  font-size:0
+  height: 11px
+
+
+.places-left
+  font-size:10px
+  direction:rtl
+  color:#2383c2
+
+
+\:host
+  display: block
+  position: relative
+  z-index: 10
+  box-sizing: border-box
+
+  *, *::before, *::after
+    box-sizing: inherit
+
+.airbnb-calendar-container
+  display: block
+  position: absolute
+  top: 5px
+  left: 0
+  height: $calendar-height
+  width: $calendar-width
+  background: $white
+  border-radius: $border-radius
+  box-shadow: 1px 2px 3px rgba($black, .05)
+
+  .airbnb-calendar
+    display: block
+    width: 100%
+    height: 100%
+    border-radius: $border-radius
+    border: 1px solid $border-default
+
+    .calendar
+      width: calc(100% / 2)
+      height: 100%
+      float: left
+      padding: 40px 60px
+
+      .controls
+        +unselectable
+        display: flex
+        width: 100%
+        margin-bottom: 25px
+        align-items: center
+        justify-content: center
+        position: relative
+
+        .month-name
+          font-size: 15px
+          font-weight: 600
+
+        .chevron-left, .chevron-right
+          position: absolute
+          top: 0
+          width: 8px
+          height: 14px
+          cursor: pointer
+
+        .chevron-left
+          left: 0
+
+        .chevron-right
+          right: 0
+
+      .calendar-day-names
+        box-sizing: border-box
+        width: 100%
+        display: flex
+        align-items: center
+        margin-bottom: 10px
+        .day
+          +unselectable
+          width: calc(100% / 7)
+          font-size: 12px
+          font-weight: 500
+          color: $day-name-color
+          text-align: center
+          color: #5f5f5f
+      .calendar-days
+        width: 100%
+        display: block
+
+        .day 
+          +unselectable
+          box-sizing: border-box
+          width: calc(100% / 7)
+          display: flex
+          flex-direction:column
+          float: left
+          position: relative 
+          font-weight: 500
+          color: $day-color
+          align-items: center
+          justify-content: center
+          border: 2px solid transparent
+          border-right: 2px solid #ffffff
+          border-left : 2px solid #ffffff
+          margin: 2px 0
+          flex-direction: column
+          background-color: #ffffff
+
+          &::before
+            content: ''
+            display: block
+
+          &:hover:not(.is-disabled)
+            
+            border-radius:0px
+            border-color: $day-color
+            cursor: pointer
+
+          &.is-disabled
+            background-color: #f1f1f1
+            color: $day-disabled-color
+            pointer-events: none
+            display:flex
+            flex-direction: column
+
+          &.is-prev-month
+            color: transparent
+
+          &.is-active
+            background: $day-border
+            color: $white
+            border-color: $day-border
+
+          &.is-included
+            background: $day-included
+            color: $day-color
+            border-color: $day-included
+            border-radius: 0
+
+          &.is-invisible
+            visibility: hidden
+
+
