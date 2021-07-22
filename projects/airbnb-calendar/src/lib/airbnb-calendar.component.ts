@@ -152,6 +152,8 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   nextMonth(): void {
+    console.log('asd');
+
     this.date = addMonths(this.date, 1);
     this.initCalendar();
     this.selectDay();
@@ -180,7 +182,8 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         d = setSeconds(setMinutes(setHours(d, 0), 0), 0);
         return {
           date: d,
-          day: getDate(d),
+          day: { dayNumber: getDate(d), 
+            freeSpace: isBefore(now, d) || isSameDay(now, d) ? getDate(d) : 0 },
           month: getMonth(d),
           year: getYear(d),
           isSameMonth: isSameMonth(d, start),
@@ -202,7 +205,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
               const curr = setSeconds(setMinutes(setHours(subDays(start, i + 1), 0), 0), 0);
               return {
                 date: curr,
-                day: getDate(curr),
+                day: { dayNumber: getDate(curr), freeSpace: getDate(curr) },
                 month: getMonth(curr),
                 year: getYear(curr),
                 isSameMonth: false,
