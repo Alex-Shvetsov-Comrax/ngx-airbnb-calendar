@@ -1,9 +1,9 @@
 import { Locale, getYear } from 'date-fns';
-import { enUS } from 'date-fns/locale';
+import { he } from 'date-fns/locale';
 
 export interface Day {
   date: Date;
-  day: number;
+  day: {dayNumber:number, freeSpace:number};
   month: number;
   year: number;
   isSameMonth: boolean;
@@ -13,6 +13,7 @@ export interface Day {
   isVisible: boolean;
   isIncluded: boolean;
   isActive: boolean;
+
 }
 
 export interface Calendar {
@@ -47,6 +48,6 @@ const defaultOptions: CalendarOptions = {
   formatTitle: 'MMMM uuuu',
   formatDays: 'eeeeee',
   firstCalendarDay: 0,
-  locale: enUS,
+  locale: he,
   closeOnSelected: false
 };
