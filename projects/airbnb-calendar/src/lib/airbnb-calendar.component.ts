@@ -44,7 +44,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   @Output() modelValue: EventEmitter<string> = new EventEmitter<string>();
   @Output() fromValue: EventEmitter<string | null> = new EventEmitter<string | null>();
   @Output() toValue: EventEmitter<string | null> = new EventEmitter<string | null>();
-
+  @Output() newDate: EventEmitter<Date> = new EventEmitter<Date>();
   private date: Date = new Date();
   private innerValue: string | null = null;
 
@@ -153,7 +153,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
 
   nextMonth(): void {
     console.log('asd');
-
+    this.newDate.emit(this.date)
     this.date = addMonths(this.date, 1);
     this.initCalendar();
     this.selectDay();
@@ -161,6 +161,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
 
   prevMonth(): void {
     this.date = subMonths(this.date, 1);
+    this.newDate.emit(this.date)
     this.initCalendar();
     this.selectDay();
   }

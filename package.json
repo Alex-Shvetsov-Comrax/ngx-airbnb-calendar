@@ -1,11 +1,12 @@
 {
-  "name": "airbnb-calendar",
-  "version": "0.0.0",
+  "name": "alex-airbnb-calendar",
+  "version": "1.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve demo --open --port 4550",
     "build": "ng build airbnb-calendar --prod",
     "build:lib": "ng build --prod airbnb-calendar",
+    "build:publish": "npm run build:lib && cd dist/airbnb-calendar && npm publish && cd ..",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

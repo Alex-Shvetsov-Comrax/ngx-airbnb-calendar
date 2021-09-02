@@ -1,9 +1,9 @@
 {
-  "name": "ngx-airbnb-calendar",
-  "version": "0.5.0",
+  "name": "comrax-alex-airbnb-calendar",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jkuri/ngx-airbnb-calendar"
+    "url": "https://github.com/Alex-Shvetsov-Comrax/ngx-airbnb-calendar"
   },
   "author": {
     "name": "Jan Kuri",
