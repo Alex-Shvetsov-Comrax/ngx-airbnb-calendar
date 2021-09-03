@@ -17,10 +17,10 @@ export class AppComponent {
       freeSpacesArray.push({
         date: start,
         freeSpace: [
-          ['cabin', Math.floor(Math.random() * 8).toString()],
-          ['tents', Math.floor(Math.random() * 8).toString()],
-          ['campgrounds', Math.floor(Math.random() * 8).toString()],
-          ['rooms', Math.floor(Math.random() * 8).toString()]
+          ['בקתה', Math.floor(Math.random() * 8).toString()],
+          ['אוהל', Math.floor(Math.random() * 8).toString()],
+          ['קאמפ', Math.floor(Math.random() * 8).toString()], 
+          ['חדר', Math.floor(Math.random() * 8).toString()]
         ]
         // {
         //         cabins: Math.floor(Math.random() * 8),
@@ -49,5 +49,13 @@ export class AppComponent {
     console.log(i); 
     
   }
+  prevDateRecived(i:any){
+    console.log('prev'); 
+    
+  }
   
+  newSleepingPlaceRecived(i:any){
+    console.log(i); 
+    
+  }
 }

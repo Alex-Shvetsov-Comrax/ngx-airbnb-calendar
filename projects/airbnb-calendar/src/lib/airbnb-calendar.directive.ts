@@ -23,7 +23,8 @@ import { CalendarOptions, mergeCalendarOptions } from './airbnb-calendar.interfa
 export class AirbnbCalendarDirective implements OnChanges {
   @Input() options!: CalendarOptions;
   @Output() newDate: EventEmitter<any> = new EventEmitter<any>();
-  @HostBinding() sleepingPlace: string='cabin';
+  @Output() prevDate: EventEmitter<any> = new EventEmitter<any>();
+  @Output() sleepingPlace: EventEmitter<any> = new EventEmitter<any>();
   component: ComponentRef<AirbnbCalendarComponent>;
   componentFactory: ComponentFactory<AirbnbCalendarComponent>;
   sub: Subscription = new Subscription();
@@ -44,14 +45,27 @@ export class AirbnbCalendarDirective implements OnChanges {
       })
     );
 
-
+ 
     this.sub.add(
       this.component.instance.newDate.subscribe((event: string) => {
         this.newDate.emit(event)
       })
     );
-
     
+    this.sub.add(
+      this.component.instance.prevDate.subscribe((event: string) => {
+        this.prevDate.emit(event)
+      })
+    );
+
+
+    this.sub.add(
+      this.component.instance.sleepingPlace.subscribe((event: string) => {
+        this.sleepingPlace.emit(event)
+      })
+    );
+
+
     this.component.onDestroy(() => this.sub.unsubscribe());
   }
 
