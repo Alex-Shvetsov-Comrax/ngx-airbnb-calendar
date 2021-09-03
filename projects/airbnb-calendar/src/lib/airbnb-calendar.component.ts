@@ -52,7 +52,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   calendar!: Calendar;
   calendarNext!: Calendar;
   fromToDate: { from: Date | null; to: Date | null } = { from: null, to: null };
-
+  sleepingPlaceType:string=''
   get value(): string | null {
     return this.innerValue;
   }
@@ -88,13 +88,23 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   constructor(private elementRef: ElementRef, public cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    this.sleepingPlaceType=this.options.freeSpacesArray[0].freeSpace[0][0]
     this.options = mergeCalendarOptions(this.options);
+    
     this.initCalendar();
   }
 
   ngOnChanges(): void {
     this.options = mergeCalendarOptions(this.options);
     this.initCalendar();
+  }
+
+  sleepingPlaceHandler(sleepingPlace:string){
+    this.sleepingPlaceType=sleepingPlace
+    this.options = mergeCalendarOptions(this.options);
+    this.initCalendar();
+     
+
   }
 
   selectDay(index?: number, calendar?: 'primary' | 'secondary'): void {
@@ -184,7 +194,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         return {
           date: d,
           day: { dayNumber: getDate(d), 
-            freeSpace: isBefore(now, d) || isSameDay(now, d) ? getDate(d) : 0 },
+            freeSpace: this.returnFreeSpace(d) },
           month: getMonth(d),
           year: getYear(d),
           isSameMonth: isSameMonth(d, start),
@@ -206,7 +216,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
               const curr = setSeconds(setMinutes(setHours(subDays(start, i + 1), 0), 0), 0);
               return {
                 date: curr,
-                day: { dayNumber: getDate(curr), freeSpace: getDate(curr) },
+                day: { dayNumber: getDate(curr), freeSpace: this.returnFreeSpace(curr) },
                 month: getMonth(curr),
                 year: getYear(curr),
                 isSameMonth: false,
@@ -241,4 +251,14 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
       dayNames
     };
   }
+
+
+returnFreeSpace(date:Date):number{
+
+
+  return +this.options.freeSpacesArray.filter(day => {
+    return getDate(day.date) === getDate(date);
+})[0].freeSpace.filter(sleepingType=>sleepingType[0]===this.sleepingPlaceType)[0][1]
+}
+
 }

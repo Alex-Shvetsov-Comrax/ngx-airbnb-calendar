@@ -1,6 +1,12 @@
 <div class="airbnb-calendar-container" *ngIf="isOpened">
   <div class="airbnb-calendar">
-    <section class="calendar">
+    <div class="sleepingTypes">
+      <div class="sleepingTypes-type" *ngFor="let item of this.options.freeSpacesArray[0].freeSpace; let i = index">
+        <input type="radio" [id]="item[0]" name="sleepingPlace" [value]="item[0]" (click)="sleepingPlaceHandler(item[0])" [(ngModel)]='sleepingPlaceType' />
+        <label [for]="item[0]">{{ item[0].toUpperCase() }}</label>
+      </div>
+    </div>
+    <section class="calendar"> 
       <div class="controls">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -12,7 +18,7 @@
         >
           <path d="M2.414 7l5.293 5.293a1 1 0 01-1.414 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L2.414 7z" />
         </svg>
-        
+
         <span class="month-name">{{ calendar.title }}</span>
       </div>
       <div class="calendar-day-names">
