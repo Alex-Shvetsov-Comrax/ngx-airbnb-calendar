@@ -31,7 +31,7 @@ export class AppComponent {
     }
     return freeSpacesArray;
   }
-  
+  sleepingType:string=''
   date: string | null = null;
   options: CalendarOptions = {
     freeSpacesArray: this.freeSpacesArrayGenarator(new Date(), new Date(2022, 11, 17)),
@@ -45,8 +45,9 @@ export class AppComponent {
   };
 
 
-  newDateRecived(){
-    console.log('asdasdasd');
+  newDateRecived(i:any){
+    console.log(i); 
     
   }
+  
 }

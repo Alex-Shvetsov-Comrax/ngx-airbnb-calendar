@@ -9,7 +9,8 @@
             placeholder="Pick a date range"
             [(ngModel)]="date" 
             airbnb-calendar
-            [options]="options"
+            [options]="options" 
+            (newDate)='newDateRecived($event)'
           />
         </div>
       </div>

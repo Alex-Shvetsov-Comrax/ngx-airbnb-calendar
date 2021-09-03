@@ -4,10 +4,13 @@ import {
   ComponentFactoryResolver,
   ComponentFactory,
   HostListener,
+  HostBinding,
   ElementRef,
   ComponentRef,
   Input,
-  OnChanges
+  OnChanges,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import { AirbnbCalendarComponent } from './airbnb-calendar.component';
 import { Subscription } from 'rxjs';
@@ -19,7 +22,8 @@ import { CalendarOptions, mergeCalendarOptions } from './airbnb-calendar.interfa
 })
 export class AirbnbCalendarDirective implements OnChanges {
   @Input() options!: CalendarOptions;
-
+  @Output() newDate: EventEmitter<any> = new EventEmitter<any>();
+  @HostBinding() sleepingPlace: string='cabin';
   component: ComponentRef<AirbnbCalendarComponent>;
   componentFactory: ComponentFactory<AirbnbCalendarComponent>;
   sub: Subscription = new Subscription();
@@ -40,6 +44,14 @@ export class AirbnbCalendarDirective implements OnChanges {
       })
     );
 
+
+    this.sub.add(
+      this.component.instance.newDate.subscribe((event: string) => {
+        this.newDate.emit(event)
+      })
+    );
+
+    
     this.component.onDestroy(() => this.sub.unsubscribe());
   }
 
@@ -51,6 +63,16 @@ export class AirbnbCalendarDirective implements OnChanges {
   @HostListener('focus', ['$event.target']) onFocus(): void {
     this.component.instance.isOpened = true;
   }
+
+  // @HostListener('click') onClick(): void {
+  //   }
+
+  //   @HostListener('class.chevron-right') private onClick() {
+  //       this.newDate.emit('asdsssssssssssasd') 
+  // }
+
+
+
 
   @HostListener('document:click', ['$event']) onBlurClick(e: MouseEvent): void {
     const container = this.el.nativeElement.parentElement.querySelector('.airbnb-calendar-container');
