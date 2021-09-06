@@ -9,28 +9,43 @@ import { subDays, addDays } from 'date-fns';
 })
 export class AppComponent {
 
-   freeSpacesArrayGenarator(start: Date, end: Date) {
-    const i = 0;
-    let freeSpacesArray = [];
-    while (start < end) {
-      start = new Date(start.setDate(start.getDate() + 1));
-      freeSpacesArray.push({
-        date: start,
-        freeSpace: [
-          ['בקתה', Math.floor(Math.random() * 8).toString()],
-          ['אוהל', Math.floor(Math.random() * 8).toString()],
-          ['קאמפ', Math.floor(Math.random() * 8).toString()], 
-          ['חדר', Math.floor(Math.random() * 8).toString()]
+  
+ freeSpacesArrayGenarator(start: Date, end: Date) {
+  const i = 0;
+  let freeSpacesArray = [];
+  while (start < end) {
+    start = new Date(start.setDate(start.getDate() + 1));
+    freeSpacesArray.push({
+      date: start,
+      freeSpace: 
+        [
+          {
+            accomodationName: "cabin",
+            availableBeds: +Math.floor(Math.random() * 8).toString()
+          },
+                      {
+            accomodationName: "tent",
+            availableBeds: +Math.floor(Math.random() * 8).toString()
+          },
+                      {
+            accomodationName: "room",
+            availableBeds: +Math.floor(Math.random() * 8).toString()
+          },
+                      
         ]
-        // {
-        //         cabins: Math.floor(Math.random() * 8),
-        //         tents: Math.floor(Math.random() * 8),
-        //         campgrounds: Math.floor(Math.random() * 8)
-        //     }
-      });
-    }
-    return freeSpacesArray;
+      //  {'cabin', Math.floor(Math.random() * 8).toString()},
+      //   {'tents', Math.floor(Math.random() * 8).toString()},
+      //   {'campgrounds', Math.floor(Math.random() * 8).toString()}
+      // {
+      //         cabins: Math.floor(Math.random() * 8),
+      //         tents: Math.floor(Math.random() * 8),
+      //         campgrounds: Math.floor(Math.random() * 8)
+      //     }
+    });
   }
+  return freeSpacesArray;
+}
+
   sleepingType:string=''
   date: string | null = null;
   options: CalendarOptions = {

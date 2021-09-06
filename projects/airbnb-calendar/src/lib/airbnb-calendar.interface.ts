@@ -25,7 +25,10 @@ export interface Calendar {
 
 export interface FreeSpace {
   date: Date;
-  freeSpace: string[][];
+  freeSpace: {
+    accomodationName: string
+    availableBeds: number
+  }[]; 
 }
 
 export interface CalendarOptions {
@@ -49,16 +52,21 @@ function freeSpacesArrayGenarator(start: Date, end: Date) {
     start = new Date(start.setDate(start.getDate() + 1));
     freeSpacesArray.push({
       date: start,
-      freeSpace: [
-        ['cabin', Math.floor(Math.random() * 8).toString()],
-        ['tents', Math.floor(Math.random() * 8).toString()],
-        ['campgrounds', Math.floor(Math.random() * 8).toString()]
+      freeSpace: 
+        [
+          {
+            accomodationName: "cabin",
+            availableBeds: +Math.floor(Math.random() * 8).toString()
+          },
+                      {
+            accomodationName: "tent",
+            availableBeds: +Math.floor(Math.random() * 8).toString()
+          },
+                      {
+            accomodationName: "room",
+            availableBeds: +Math.floor(Math.random() * 8).toString()
+          },
       ]
-      // {
-      //         cabins: Math.floor(Math.random() * 8),
-      //         tents: Math.floor(Math.random() * 8),
-      //         campgrounds: Math.floor(Math.random() * 8)
-      //     }
     });
   }
   return freeSpacesArray;

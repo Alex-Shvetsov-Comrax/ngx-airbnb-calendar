@@ -90,7 +90,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   constructor(private elementRef: ElementRef, public cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.sleepingPlaceType=this.options.freeSpacesArray[0].freeSpace[0][0]
+    this.sleepingPlaceType=this.options.freeSpacesArray[0].freeSpace[0].accomodationName
     this.options = mergeCalendarOptions(this.options);
     
     this.initCalendar();
@@ -260,7 +260,7 @@ returnFreeSpace(date:Date):number{
 
   return +this.options.freeSpacesArray.filter(day => {
     return getDate(day.date) === getDate(date);
-})[0].freeSpace.filter(sleepingType=>sleepingType[0]===this.sleepingPlaceType)[0][1]
+})[0].freeSpace.filter(sleepingType=>sleepingType.accomodationName===this.sleepingPlaceType)[0].availableBeds
 }
 
 }
