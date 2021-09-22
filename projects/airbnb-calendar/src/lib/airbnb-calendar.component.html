@@ -2,65 +2,31 @@
   <div class="airbnb-calendar">
     <div class="sleepingTypes">
       <div class="sleepingTypes-type" *ngFor="let item of this.options.freeSpacesArray[0].freeSpace; let i = index">
-        <input type="radio" [id]="item.accomodationName" name="sleepingPlace" [value]="item.accomodationName" (click)="sleepingPlaceHandler(item.accomodationName)" [(ngModel)]='sleepingPlaceType' />
-        <label [for]="item.accomodationName">{{ item.accomodationName.toUpperCase() }}</label>
+        <input
+          type="radio"
+          [id]="item.accomodationName"
+          name="sleepingPlace"
+          [value]="item.accomodationName"
+          (click)="sleepingPlaceHandler(item.accomodationName)"
+          [(ngModel)]="sleepingPlaceType"
+        />
+        <label class="sleepingTypes-type-label" [for]="item.accomodationName">{{ item.accomodationName.toUpperCase() }}</label>
       </div>
     </div>
-    <section class="calendar">    
-            
-      <div class="controls">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="8"
-          height="14"
-          class="chevron-left"
-          (click)="prevMonth()"
-          [class.is-disabled]="!controlsStatus.from"
-        >
-          <path d="M2.414 7l5.293 5.293a1 1 0 01-1.414 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L2.414 7z" />
-        </svg>
 
-        <span class="month-name">{{ calendar.title }}</span>
-      </div>
-      <div class="calendar-day-names">
-        <span *ngFor="let name of calendar.dayNames" class="day">{{ name }}</span>
-      </div>
-      <div class="calendar-days">
-        <span
-          *ngFor="let day of calendar.days; let i = index"
-          [ngClass]="{
-            day: true,
-            'is-prev-month': !day.isSameMonth,
-            'is-today': day.isToday,
-            'is-selected': day.isSelected,
-            'is-disabled':
-              !day.isSelectable ||
-              ({}.toString.call(this.options.maxDate) === '[object Date]' ? this.options.maxDate! < day.date : false) ||
-              ({}.toString.call(this.options.minDate) === '[object Date]' ? this.options.minDate! > day.date : false),
-            'is-included': day.isIncluded,
-            'is-invisible': !day.isVisible,
-            'is-active': day.isActive || fromToDate.from === day.date || fromToDate.to === day.date
-          }"
-          (click)="selectDay(i, 'primary')"
-        >
-          <div>{{ day.day.dayNumber }}</div>
-          <div class="places-left">פנוי : {{ day.day.freeSpace }}</div>
-        </span>
-      </div>
-    </section>
     <section class="calendar">
       <div class="controls">
-        <span class="month-name">{{ calendarNext.title }}</span>
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="8"
-          height="14"
-          class="chevron-right"
-          (click)="nextMonth()"
-          [class.is-disabled]="!controlsStatus.to"
+        xmlns="http://www.w3.org/2000/svg"
+        width="8"
+        height="14"
+        class="chevron-left"
+        (click)="nextMonth()"
+        [class.is-disabled]="!controlsStatus.to"
         >
-          <path d="M5.586 7L.293 12.293a1 1 0 001.414 1.414l6-6a1 1 0 000-1.414l-6-6A1 1 0 00.293 1.707L5.586 7z" />
-        </svg>
+        <path d="M5.586 7L.293 12.293a1 1 0 001.414 1.414l6-6a1 1 0 000-1.414l-6-6A1 1 0 00.293 1.707L5.586 7z" />
+      </svg>
+      <span class="month-name">{{ calendarNext.title }}</span>
       </div>
       <div class="calendar-day-names">
         <span *ngFor="let name of calendarNext.dayNames" class="day">{{ name }}</span>
@@ -84,7 +50,54 @@
           (click)="selectDay(i, 'secondary')"
         >
           <div>{{ day.day.dayNumber }}</div>
-          <div class="places-left">{{ day.day.freeSpace }} : פנוי</div>
+          <div class="places-left" 
+           [ngClass]="{
+            'is-active-free-space': day.isActive || fromToDate.from === day.date || fromToDate.to === day.date
+          }">{{ day.day.freeSpace }} : פנוי</div>
+        </span>
+      </div>
+    </section>
+    <section class="calendar">
+      <div class="controls">
+        <span class="month-name">{{ calendar.title }}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="8"
+          height="14"
+          class="chevron-right"
+          (click)="prevMonth()"
+          [class.is-disabled]="!controlsStatus.from"
+        >
+          <path d="M2.414 7l5.293 5.293a1 1 0 01-1.414 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L2.414 7z" />
+        </svg>
+
+      </div>
+      <div class="calendar-day-names">
+        <span *ngFor="let name of calendar.dayNames" class="day">{{ name }}</span>
+      </div>
+      <div class="calendar-days">
+        <span
+          *ngFor="let day of calendar.days; let i = index"
+          [ngClass]="{
+            day: true,
+            'is-prev-month': !day.isSameMonth,
+            'is-today': day.isToday,
+            'is-selected': day.isSelected,
+            'is-disabled':
+              !day.isSelectable ||
+              ({}.toString.call(this.options.maxDate) === '[object Date]' ? this.options.maxDate! < day.date : false) ||
+              ({}.toString.call(this.options.minDate) === '[object Date]' ? this.options.minDate! > day.date : false),
+            'is-included': day.isIncluded,
+            'is-invisible': !day.isVisible,
+            'is-active': day.isActive || fromToDate.from === day.date || fromToDate.to === day.date
+          }"
+          (click)="selectDay(i, 'primary')"
+        >
+          <div>{{ day.day.dayNumber }}</div>
+          <div class="places-left" 
+          [ngClass]="{
+            'is-active-free-space': day.isActive || fromToDate.from === day.date || fromToDate.to === day.date
+          }">פנוי : {{ day.day.freeSpace }}</div>
         </span>
       </div>
     </section>

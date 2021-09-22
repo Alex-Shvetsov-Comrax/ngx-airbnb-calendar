@@ -54,7 +54,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   calendar!: Calendar;
   calendarNext!: Calendar;
   fromToDate: { from: Date | null; to: Date | null } = { from: null, to: null };
-  sleepingPlaceType:string=''
+  sleepingPlaceType: string = '';
   get value(): string | null {
     return this.innerValue;
   }
@@ -90,9 +90,9 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   constructor(private elementRef: ElementRef, public cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.sleepingPlaceType=this.options.freeSpacesArray[0].freeSpace[0].accomodationName
+    this.sleepingPlaceType = this.options.freeSpacesArray[0].freeSpace[0].accomodationName;
     this.options = mergeCalendarOptions(this.options);
-    
+
     this.initCalendar();
   }
 
@@ -101,44 +101,77 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
     this.initCalendar();
   }
 
-  sleepingPlaceHandler(sleepingPlace:string){
-    this.sleepingPlaceType=sleepingPlace
+  sleepingPlaceHandler(sleepingPlace: string) {
+    this.sleepingPlaceType = sleepingPlace;
     this.options = mergeCalendarOptions(this.options);
     this.initCalendar();
-    this.sleepingPlace.emit(sleepingPlace)
-     
-
+    this.sleepingPlace.emit(sleepingPlace);
   }
 
   selectDay(index?: number, calendar?: 'primary' | 'secondary'): void {
     if (index) {
+      console.log('1');
+
       const cal = calendar === 'primary' ? this.calendar : this.calendarNext;
       if (!this.fromToDate.from) {
+        console.log('2');
         this.fromToDate.from = cal.days[index].date;
         const from = format(this.fromToDate.from as Date, this.options.format as string);
         this.value = from;
-        this.modelValue.next(from);
+        this.modelValue.next(from); 
         this.fromValue.next(from);
+        console.log(this.isOpened);
+        
+      
       } else if (this.fromToDate.from && !this.fromToDate.to) {
         this.fromToDate.to = cal.days[index].date;
+        console.log('3');
         const from = format(this.fromToDate.from as Date, this.options.format as string);
         const to = format(this.fromToDate.to as Date, this.options.format as string);
         this.value = `${from}-${to}`;
         this.modelValue.next(this.value);
         this.toValue.next(this.value);
-
         if (this.options.closeOnSelected) {
           this.isOpened = false;
         }
+    
       } else if (this.fromToDate.to) {
+        console.log('4');
         this.fromToDate = { from: cal.days[index].date, to: null };
+        console.log(index);
         const from = format(this.fromToDate.from as Date, this.options.format as string);
         this.value = from;
+        console.log(this.value);
+     
         this.modelValue.next(from);
         this.fromValue.next(from);
       }
     }
 
+    if (!this.value) {
+      this.calendar.days = this.calendar.days.map((d: Day) => {
+        return {
+          ...d,
+          ...{
+            isIncluded:
+              isAfter(d.date, this.fromToDate.from || new Date()) && isBefore(d.date, this.fromToDate.to || new Date()),
+            isActive: false
+          }
+        };
+      });
+
+      this.calendarNext.days = this.calendarNext.days.map((d: Day) => {
+        return {
+          ...d,
+          ...{
+            isIncluded:
+              isAfter(d.date, this.fromToDate.from || new Date()) && isBefore(d.date, this.fromToDate.to || new Date()),
+            isActive: false
+          }
+        };
+      });
+      return;
+    }
     this.calendar.days = this.calendar.days.map((d: Day) => {
       return {
         ...d,
@@ -165,7 +198,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   nextMonth(): void {
-    this.newDate.next(this.date)
+    this.newDate.next(this.date);
     this.date = addMonths(this.date, 1);
     this.initCalendar();
     this.selectDay();
@@ -173,7 +206,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
 
   prevMonth(): void {
     this.date = subMonths(this.date, 1);
-    this.prevDate.next(this.date)
+    this.prevDate.next(this.date);
     this.initCalendar();
     this.selectDay();
   }
@@ -195,8 +228,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         d = setSeconds(setMinutes(setHours(d, 0), 0), 0);
         return {
           date: d,
-          day: { dayNumber: getDate(d), 
-            freeSpace: this.returnFreeSpace(d) },
+          day: { dayNumber: getDate(d), freeSpace: this.returnFreeSpace(d) },
           month: getMonth(d),
           year: getYear(d),
           isSameMonth: isSameMonth(d, start),
@@ -254,13 +286,11 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
     };
   }
 
-
-returnFreeSpace(date:Date):number{
-
-
-  return +this.options.freeSpacesArray.filter(day => {
-    return getDate(day.date) === getDate(date);
-})[0].freeSpace.filter(sleepingType=>sleepingType.accomodationName===this.sleepingPlaceType)[0].availableBeds
-}
-
+  returnFreeSpace(date: Date): number {
+    return +this.options.freeSpacesArray
+      .filter(day => {
+        return getDate(day.date) === getDate(date);
+      })[0]
+      .freeSpace.filter(sleepingType => sleepingType.accomodationName === this.sleepingPlaceType)[0].availableBeds;
+  }
 }
