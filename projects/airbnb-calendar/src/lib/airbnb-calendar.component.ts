@@ -101,6 +101,11 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
     this.initCalendar();
   }
 
+  closeCalendarHandler() {
+    console.log('asd');
+    
+    this.isOpened = false;
+  }
   sleepingPlaceHandler(sleepingPlace: string) {
     this.sleepingPlaceType = sleepingPlace;
     this.options = mergeCalendarOptions(this.options);
@@ -118,11 +123,9 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         this.fromToDate.from = cal.days[index].date;
         const from = format(this.fromToDate.from as Date, this.options.format as string);
         this.value = from;
-        this.modelValue.next(from); 
+        this.modelValue.next(from);
         this.fromValue.next(from);
         console.log(this.isOpened);
-        
-      
       } else if (this.fromToDate.from && !this.fromToDate.to) {
         this.fromToDate.to = cal.days[index].date;
         console.log('3');
@@ -134,7 +137,6 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         if (this.options.closeOnSelected) {
           this.isOpened = false;
         }
-    
       } else if (this.fromToDate.to) {
         console.log('4');
         this.fromToDate = { from: cal.days[index].date, to: null };
@@ -142,7 +144,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         const from = format(this.fromToDate.from as Date, this.options.format as string);
         this.value = from;
         console.log(this.value);
-     
+
         this.modelValue.next(from);
         this.fromValue.next(from);
       }
