@@ -8,6 +8,11 @@ import { subDays, addDays } from 'date-fns';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
+  
+  closeCalendar(event: any){
+    console.log('asd'); 
+    
+  }
   freeSpacesArrayGenarator(start: Date, end: Date) {
     const i = 0;
     let freeSpacesArray = [];
