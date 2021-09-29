@@ -47,7 +47,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   @Output() newDate: EventEmitter<Date> = new EventEmitter<Date>();
   @Output() prevDate: EventEmitter<Date> = new EventEmitter<Date>();
   @Output() sleepingPlace: EventEmitter<string> = new EventEmitter<string>();
-  @Output() closeCalendar: EventEmitter<any> = new EventEmitter<any>();
+  @Output() closeCalendar: EventEmitter<boolean> = new EventEmitter<boolean>();
   private date: Date = new Date();
   private innerValue: string | null = null;
 
@@ -105,7 +105,6 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   closeCalendarHandler() {
-    console.log('asd');
     this.isOpened = false;
     this.closeCalendar.emit()
     
@@ -119,11 +118,9 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
 
   selectDay(index?: number, calendar?: 'primary' | 'secondary'): void {
     if (index) {
-      console.log('1');
 
       const cal = calendar === 'primary' ? this.calendar : this.calendarNext;
       if (!this.fromToDate.from) {
-        console.log('2');
         this.fromToDate.from = cal.days[index].date;
         const from = format(this.fromToDate.from as Date, this.options.format as string);
         this.value = from;
@@ -132,8 +129,6 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         console.log(this.isOpened);
       } else if (this.fromToDate.from && !this.fromToDate.to) {
         this.fromToDate.to = cal.days[index].date;
-        console.log('3');
-        console.log(this.fromToDate);
 
         const from = format(this.fromToDate.from as Date, this.options.format as string);
         const to = format(this.fromToDate.to as Date, this.options.format as string);
@@ -144,13 +139,9 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
           this.isOpened = false;
         }
       } else if (this.fromToDate.to) {
-        console.log(this.fromToDate);
-        console.log('4');
         this.fromToDate = { from: cal.days[index].date, to: null };
-        console.log(index);
         const from = format(this.fromToDate.from as Date, this.options.format as string);
         this.value = from;
-        console.log(this.value);
 
         this.modelValue.next(from);
         this.fromValue.next(from);

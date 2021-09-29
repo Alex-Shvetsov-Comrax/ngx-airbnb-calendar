@@ -61,7 +61,7 @@ export class AirbnbCalendarDirective implements OnChanges {
     );
     this.sub.add(
       this.component.instance.closeCalendar.subscribe((event: string) => {
-        this.closeCalendar.emit()
+        this.closeCalendar.emit(event) 
       })
     );
 
