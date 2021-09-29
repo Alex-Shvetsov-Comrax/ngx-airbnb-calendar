@@ -94,8 +94,9 @@
           }"
           (click)="selectDay(i, 'primary')"
         >
-          <div>{{ day.day.dayNumber }}</div>
+          <div style="pointer-events: none;">{{ day.day.dayNumber }}</div>
           <div class="places-left" 
+          style="pointer-events: none;"
           [ngClass]="{
             'is-active-free-space': day.isActive || fromToDate.from === day.date || fromToDate.to === day.date
           }">פנוי : {{ day.day.freeSpace }}</div>

@@ -26,9 +26,9 @@ export interface Calendar {
 export interface FreeSpace {
   date: Date;
   freeSpace: {
-    accomodationName: string
-    availableBeds: number
-  }[]; 
+    accomodationName: string;
+    availableBeds: number;
+  }[];
 }
 
 export interface CalendarOptions {
@@ -37,6 +37,8 @@ export interface CalendarOptions {
   maxDate?: Date;
   minYear?: number;
   maxYear?: number;
+  fromToDate?: { from: Date | null; to: Date | null };
+
   format?: string;
   formatTitle?: string;
   formatDays?: string;
@@ -52,20 +54,19 @@ function freeSpacesArrayGenarator(start: Date, end: Date) {
     start = new Date(start.setDate(start.getDate() + 1));
     freeSpacesArray.push({
       date: start,
-      freeSpace: 
-        [
-          {
-            accomodationName: "cabin",
-            availableBeds: +Math.floor(Math.random() * 8).toString()
-          },
-                      {
-            accomodationName: "tent",
-            availableBeds: +Math.floor(Math.random() * 8).toString()
-          },
-                      {
-            accomodationName: "room",
-            availableBeds: +Math.floor(Math.random() * 8).toString()
-          },
+      freeSpace: [
+        {
+          accomodationName: 'cabin',
+          availableBeds: +Math.floor(Math.random() * 8).toString()
+        },
+        {
+          accomodationName: 'tent',
+          availableBeds: +Math.floor(Math.random() * 8).toString()
+        },
+        {
+          accomodationName: 'room',
+          availableBeds: +Math.floor(Math.random() * 8).toString()
+        }
       ]
     });
   }
