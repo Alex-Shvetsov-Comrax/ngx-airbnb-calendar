@@ -25,6 +25,8 @@ export class AirbnbCalendarDirective implements OnChanges {
   @Output() newDate: EventEmitter<any> = new EventEmitter<any>();
   @Output() prevDate: EventEmitter<any> = new EventEmitter<any>();
   @Output() sleepingPlace: EventEmitter<any> = new EventEmitter<any>();
+  @Output() closeCalendar: EventEmitter<any> = new EventEmitter<any>();
+
   component: ComponentRef<AirbnbCalendarComponent>;
   componentFactory: ComponentFactory<AirbnbCalendarComponent>;
   sub: Subscription = new Subscription();
@@ -57,6 +59,12 @@ export class AirbnbCalendarDirective implements OnChanges {
         this.prevDate.emit(event)
       })
     );
+    this.sub.add(
+      this.component.instance.closeCalendar.subscribe((event: string) => {
+        this.closeCalendar.emit()
+      })
+    );
+
 
 
     this.sub.add(

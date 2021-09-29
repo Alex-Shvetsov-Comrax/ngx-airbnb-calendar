@@ -47,6 +47,7 @@ export class AppComponent {
   options: CalendarOptions = {
     freeSpacesArray: this.freeSpacesArrayGenarator(new Date(), new Date(2022, 11, 17)),
     firstCalendarDay: 0,
+    fromToDate: { from:new Date(2021, 9, 17), to:new Date(2021, 9, 22)},
     format: 'dd/LL/yyyy',
     closeOnSelected: true,
     // minDate: addDays(new Date(), 5),

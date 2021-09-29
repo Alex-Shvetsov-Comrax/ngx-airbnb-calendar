@@ -54,7 +54,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   isOpened: boolean = false;
   calendar!: Calendar;
   calendarNext!: Calendar;
-  fromToDate: { from: Date | null; to: Date | null } = { from: null, to: null };
+  fromToDate: { from: Date | null; to: Date | null } =  { from:new Date(2021, 9, 17), to:new Date(2021, 9, 22)};
   sleepingPlaceType: string = '';
   get value(): string | null {
     return this.innerValue;
@@ -106,8 +106,9 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
 
   closeCalendarHandler() {
     console.log('asd');
-    this.closeCalendar.emit()
     this.isOpened = false;
+    this.closeCalendar.emit()
+    
   }
   sleepingPlaceHandler(sleepingPlace: string) {
     this.sleepingPlaceType = sleepingPlace;
