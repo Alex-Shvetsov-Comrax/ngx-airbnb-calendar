@@ -9,10 +9,7 @@ import { subDays, addDays } from 'date-fns';
 })
 export class AppComponent {
   
-  closeCalendar(event: any){
-    console.log('asd'); 
-    
-  }
+ 
   freeSpacesArrayGenarator(start: Date, end: Date) {
     const i = 0;
     let freeSpacesArray = [];
@@ -60,7 +57,10 @@ export class AppComponent {
     minYear: 2019,
     maxYear: 2021
   };
-
+  closeCalendar(event: any){
+    console.log('asd'); 
+    
+  }
   newDateRecived(i: any) {
     console.log(i);
   }

@@ -1,10 +1,10 @@
-<!-- 
+
 <div style="position: fixed; top: 50px; left: 50px;">
   {{isOpened}}
-</div> -->
+</div>
 <div class="airbnb-calendar-container" *ngIf="isOpened">
   <div class="airbnb-calendar">
-    <button class="close-btn" (click)="closeCalendarHandler()">X</button>
+    <button class="close-btn" (click)="$event.stopPropagation();closeCalendarHandler()">X</button>
     <div class="sleepingTypes">
       <div class="sleepingTypes-type" *ngFor="let item of this.options.freeSpacesArray[0].freeSpace; let i = index">
         <input

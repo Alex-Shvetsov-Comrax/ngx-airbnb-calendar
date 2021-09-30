@@ -152,7 +152,6 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   nextMonth(): void {
-    console.log('asd');
 
     this.date = addMonths(this.date, 1);
     this.initCalendar();

@@ -105,10 +105,12 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   closeCalendarHandler() {
-    this.isOpened = false;
-    this.closeCalendar.emit()
-    
+    setTimeout(() => {
+      this.isOpened = false;
+      this.closeCalendar.emit();
+    }, 100);
   }
+
   sleepingPlaceHandler(sleepingPlace: string) {
     this.sleepingPlaceType = sleepingPlace;
     this.options = mergeCalendarOptions(this.options);
