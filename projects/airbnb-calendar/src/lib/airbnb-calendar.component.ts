@@ -100,6 +100,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   ngOnChanges(): void {
+    this.cd.detectChanges()
     this.options = mergeCalendarOptions(this.options);
     this.initCalendar();
   }

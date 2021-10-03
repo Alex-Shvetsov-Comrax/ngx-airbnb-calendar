@@ -10,7 +10,8 @@ import {
   Input,
   OnChanges,
   Output,
-  EventEmitter
+  EventEmitter,
+  SimpleChanges
 } from '@angular/core';
 import { AirbnbCalendarComponent } from './airbnb-calendar.component';
 import { Subscription } from 'rxjs';
@@ -65,21 +66,23 @@ export class AirbnbCalendarDirective implements OnChanges {
       })
     );
 
-
-
     this.sub.add(
       this.component.instance.sleepingPlace.subscribe((event: string) => {
         this.sleepingPlace.emit(event)
       })
     );
 
-
     this.component.onDestroy(() => this.sub.unsubscribe());
   }
 
-  ngOnChanges(): void {
-    this.component.instance.options = mergeCalendarOptions(this.options);
+  ngOnChanges(changes:SimpleChanges): void {
+    console.log(this.component.instance.sleepingPlaceType);
+    if(this.component.instance){
+      this.component.instance.sleepingPlaceType= this.options.freeSpacesArray[0].freeSpace[0].accomodationName
+      
+    }
     this.component.instance.cd.detectChanges();
+    this.component.instance.options = mergeCalendarOptions(this.options);
   }
 
   @HostListener('focus', ['$event.target']) onFocus(): void {
