@@ -50,6 +50,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   @Output() closeCalendar: EventEmitter<boolean> = new EventEmitter<boolean>();
   private date: Date = new Date();
   private innerValue: string | null = null;
+  initCalendarFunc= this.initCalendar
 
   isOpened: boolean = false;
   calendar!: Calendar;
@@ -139,7 +140,13 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         this.modelValue.next(this.value);
         this.toValue.next(this.value);
         if (this.options.closeOnSelected) {
-          this.isOpened = false;
+          this.closeCalendarHandler()
+          //  {
+          //   setTimeout(() => {
+          //     this.isOpened = false;
+          //     this.closeCalendar.emit();
+          //   }, 100);
+          // }
         }
       } else if (this.fromToDate.to) {
         this.fromToDate = { from: cal.days[index].date, to: null };

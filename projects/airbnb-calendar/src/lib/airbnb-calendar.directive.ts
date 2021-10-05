@@ -31,7 +31,6 @@ export class AirbnbCalendarDirective implements OnChanges {
   component: ComponentRef<AirbnbCalendarComponent>;
   componentFactory: ComponentFactory<AirbnbCalendarComponent>;
   sub: Subscription = new Subscription();
-
   constructor(
     private cfr: ComponentFactoryResolver,
     private vc: ViewContainerRef,
@@ -48,38 +47,41 @@ export class AirbnbCalendarDirective implements OnChanges {
       })
     );
 
- 
     this.sub.add(
       this.component.instance.newDate.subscribe((event: string) => {
-        this.newDate.emit(event)
+        this.newDate.emit(event);
       })
     );
-    
+
     this.sub.add(
       this.component.instance.prevDate.subscribe((event: string) => {
-        this.prevDate.emit(event)
+        this.prevDate.emit(event);
       })
     );
     this.sub.add(
       this.component.instance.closeCalendar.subscribe((event: string) => {
-        this.closeCalendar.emit(event) 
+        this.closeCalendar.emit(event);
       })
     );
 
     this.sub.add(
       this.component.instance.sleepingPlace.subscribe((event: string) => {
-        this.sleepingPlace.emit(event)
+        this.sleepingPlace.emit(event);
       })
     );
 
     this.component.onDestroy(() => this.sub.unsubscribe());
   }
 
-  ngOnChanges(changes:SimpleChanges): void {
-    console.log(this.component.instance.sleepingPlaceType);
-    if(this.component.instance){
-      this.component.instance.sleepingPlaceType= this.options.freeSpacesArray[0].freeSpace[0].accomodationName
-      
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.component.instance);
+    if (this.component.instance) {
+      // this.component.instance.sleepingPlaceType= this.options.freeSpacesArray[0].freeSpace[0].accomodationName
+      this.component.instance.sleepingPlaceType =
+        changes.options.currentValue.freeSpacesArray[0].freeSpace[0].accomodationName;
+      this.component.instance.options = mergeCalendarOptions(changes.options.currentValue);
+      mergeCalendarOptions(changes.options.currentValue);
+      this.component.instance.initCalendarFunc();
     }
     this.component.instance.cd.detectChanges();
     this.component.instance.options = mergeCalendarOptions(this.options);
@@ -93,11 +95,8 @@ export class AirbnbCalendarDirective implements OnChanges {
   //   }
 
   //   @HostListener('class.chevron-right') private onClick() {
-  //       this.newDate.emit('asdsssssssssssasd') 
+  //       this.newDate.emit('asdsssssssssssasd')
   // }
-
-
-
 
   @HostListener('document:click', ['$event']) onBlurClick(e: MouseEvent): void {
     const container = this.el.nativeElement.parentElement.querySelector('.airbnb-calendar-container');
