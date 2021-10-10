@@ -60,7 +60,9 @@
           }"
           (click)="selectDay(i, 'secondary')"
         >
-          <div>{{ day.day.dayNumber }}</div>
+          <div 
+          (click)="stopPropagation($event,i, 'secondary')"
+          >{{ day.day.dayNumber }}</div>
           <div
             class="places-left"
             [ngClass]="{
@@ -70,6 +72,8 @@
                   fromToDate.from?.getMonth() === day.date?.getMonth()) ||
                 (fromToDate.to?.getDate() === day.date?.getDate() && fromToDate.to?.getMonth() === day.date?.getMonth())
             }"
+          (click)="stopPropagation($event,i, 'secondary')"
+
           >
             {{ day.day.freeSpace }} : פנוי
           </div>
@@ -95,6 +99,8 @@
       </div>
       <div class="calendar-days">
         <span
+        
+
           *ngFor="let day of calendar.days; let i = index"
           [ngClass]="{
             day: true,
@@ -115,8 +121,11 @@
           }"
           (click)="selectDay(i, 'primary')"
         >
-          <div style="pointer-events: none">{{ day.day.dayNumber }}</div>
+          <div style="pointer-events: none"
+          (click)="stopPropagation($event,i, 'primary')"
+          >{{ day.day.dayNumber }}</div>
           <div
+          (click)="stopPropagation($event,i, 'primary')"
             class="places-left"
             style="pointer-events: none"
             [ngClass]="{

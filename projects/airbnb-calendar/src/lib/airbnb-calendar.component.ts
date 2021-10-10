@@ -110,7 +110,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
     setTimeout(() => {
       this.isOpened = false;
       this.closeCalendar.emit();
-    }, 100);
+    }, 10);
   }
 
   sleepingPlaceHandler(sleepingPlace: string) {
@@ -121,6 +121,8 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   selectDay(index?: number, calendar?: 'primary' | 'secondary'): void {
+    console.log('select');
+
     if (index) {
 
       const cal = calendar === 'primary' ? this.calendar : this.calendarNext;
@@ -141,12 +143,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         this.toValue.next(this.value);
         if (this.options.closeOnSelected) {
           this.closeCalendarHandler()
-          //  {
-          //   setTimeout(() => {
-          //     this.isOpened = false;
-          //     this.closeCalendar.emit();
-          //   }, 100);
-          // }
+     
         }
       } else if (this.fromToDate.to) {
         this.fromToDate = { from: cal.days[index].date, to: null };
@@ -302,5 +299,11 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         return getDate(day.date) === getDate(date);
       })[0]
       .freeSpace.filter(sleepingType => sleepingType.accomodationName === this.sleepingPlaceType)[0].availableBeds;
+  }
+
+  stopPropagation(e:Event,index?: number, calendar?: 'primary' | 'secondary'){
+    console.log('stoped');
+    e.stopPropagation()
+    this.selectDay(index,calendar)
   }
 }
