@@ -121,8 +121,6 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   selectDay(index?: number, calendar?: 'primary' | 'secondary'): void {
-    console.log('select');
-
     if (index) {
 
       const cal = calendar === 'primary' ? this.calendar : this.calendarNext;
@@ -132,7 +130,6 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
         this.value = from;
         this.modelValue.next(from);
         this.fromValue.next(from);
-        console.log(this.isOpened);
       } else if (this.fromToDate.from && !this.fromToDate.to) {
         this.fromToDate.to = cal.days[index].date;
 
@@ -302,7 +299,6 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   stopPropagation(e:Event,index?: number, calendar?: 'primary' | 'secondary'){
-    console.log('stoped');
     e.stopPropagation()
     this.selectDay(index,calendar)
   }
