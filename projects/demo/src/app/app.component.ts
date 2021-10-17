@@ -10,25 +10,25 @@ import { subDays, addDays } from 'date-fns';
 export class AppComponent implements OnInit {
   
  ngOnInit(){
-  setTimeout(()=>{
-    alert('asd')
-    const freeSpacesArray = this.freeSpacesArrayGenarator1(
-      new Date(),
-      new Date(2022, 11, 17)
-    );
-    this.options = {
-      firstCalendarDay: 0,
-      format: 'dd/LL/yyyy',
-      closeOnSelected: true,
-      fromToDate: { from: new Date(2021, 9, 17), to: new Date(2021, 9, 22) },
+  // setTimeout(()=>{
+  //   alert('asd')
+  //   const freeSpacesArray = this.freeSpacesArrayGenarator1(
+  //     new Date(),
+  //     new Date(2022, 11, 17)
+  //   );
+  //   this.options = {
+  //     firstCalendarDay: 0,
+  //     format: 'dd/LL/yyyy',
+  //     closeOnSelected: true,
+  //     fromToDate: { from: new Date(2021, 9, 17), to: new Date(2021, 9, 22) },
 
-      // add fromto,
-      // minDate: addDays(new Date(), 5),
-      // maxDate: addDays(new Date(), 10),
+  //     // add fromto,
+  //     // minDate: addDays(new Date(), 5),
+  //     // maxDate: addDays(new Date(), 10),
       
-      freeSpacesArray: this.freeSpacesArrayGenarator1(new Date(), new Date(2022, 11, 17)),
-    };
-  },3000)
+  //     freeSpacesArray: this.freeSpacesArrayGenarator1(new Date(), new Date(2022, 11, 17)),
+  //   };
+  // },3000)
  }
   freeSpacesArrayGenarator(start: Date, end: Date) {
     const i = 0;

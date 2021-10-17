@@ -74,6 +74,8 @@ export class AirbnbCalendarDirective implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes');
+    
     console.log(this.component.instance);
     if (this.component.instance) {
       // this.component.instance.sleepingPlaceType= this.options.freeSpacesArray[0].freeSpace[0].accomodationName
