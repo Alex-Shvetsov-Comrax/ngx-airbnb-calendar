@@ -93,6 +93,8 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   constructor(private elementRef: ElementRef, public cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    console.log(this.options);
+
     this.sleepingPlaceType = this.options.freeSpacesArray[0].freeSpace[0].accomodationName;
     this.options = mergeCalendarOptions(this.options);
     if (this.options.fromToDate) {
@@ -117,7 +119,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
     }, 10);
   }
 
-  sleepingPlaceHandler(e:Event, sleepingPlace: string) {
+  sleepingPlaceHandler(e: Event, sleepingPlace: string) {
     e.stopPropagation();
 
     this.sleepingPlaceType = sleepingPlace;
@@ -224,7 +226,7 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
 
   private initCalendar(): void {
     const date = new Date(this.date.getTime());
-    
+
     this.calendar = this.generateCalendar(date);
     this.calendarNext = this.generateCalendar(addMonths(date, 1));
   }
@@ -299,17 +301,31 @@ export class AirbnbCalendarComponent implements ControlValueAccessor, OnInit, On
   }
 
   returnFreeSpace(date: Date): number {
-    return +this.options.freeSpacesArray
-      .filter(day => {
-        return getDate(day.date) === getDate(date);
+    if (
+      this.options.freeSpacesArray.filter((day, index) => {
+        return (
+          getDate(day.date) === getDate(date) &&
+          getMonth(day.date) === getMonth(date) &&
+          getYear(day.date) === getYear(date)
+        );
       })[0]
-      .freeSpace.filter(sleepingType => sleepingType.accomodationName === this.sleepingPlaceType)[0].availableBeds;
+    ) {
+      return +this.options.freeSpacesArray
+        .filter((day, index) => {
+          return (
+            getDate(day.date) === getDate(date) &&
+            getMonth(day.date) === getMonth(date) &&
+            getYear(day.date) === getYear(date)
+          );
+        })[0]
+        .freeSpace.filter(sleepingType => sleepingType.accomodationName === this.sleepingPlaceType)[0].availableBeds;
+    }
+    return 0;
   }
-
 
   stopPropagation(e: Event, index?: number, calendar?: 'primary' | 'secondary') {
     e.stopPropagation();
-    if(index && calendar){
+    if (index && calendar) {
       this.selectDay(index, calendar);
     }
   }

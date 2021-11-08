@@ -31,35 +31,46 @@ export class AppComponent implements OnInit {
   // },3000)
  }
   freeSpacesArrayGenarator(start: Date, end: Date) {
-    const i = 0;
+    let i = 0;
     let freeSpacesArray = [];
+    freeSpacesArray.push({
+      date: new Date(start.setDate(start.getDate())),
+      freeSpace: [
+        {
+          accomodationName: 'cabin',
+          availableBeds: +i.toString()
+        },
+        {
+          accomodationName: 'tent',
+          availableBeds: +i.toString()
+        },
+        {
+          accomodationName: 'room',
+          availableBeds: +i.toString()
+        } 
+      ]
+    });
+    i++
     while (start < end) {
-      start = new Date(start.setDate(start.getDate() + 1));
+      start = new Date(start.setDate(start.getDate() + 1)); 
       freeSpacesArray.push({
         date: start,
         freeSpace: [
           {
             accomodationName: 'cabin',
-            availableBeds: +Math.floor(Math.random() * 8).toString()
+            availableBeds: +i.toString()
           },
           {
             accomodationName: 'tent',
-            availableBeds: +Math.floor(Math.random() * 8).toString()
+            availableBeds: +i.toString()
           },
           {
             accomodationName: 'room',
-            availableBeds: +Math.floor(Math.random() * 8).toString()
-          }
+            availableBeds: +i.toString()
+          } 
         ]
-        //  {'cabin', Math.floor(Math.random() * 8).toString()},
-        //   {'tents', Math.floor(Math.random() * 8).toString()},
-        //   {'campgrounds', Math.floor(Math.random() * 8).toString()}
-        // {
-        //         cabins: Math.floor(Math.random() * 8),
-        //         tents: Math.floor(Math.random() * 8),
-        //         campgrounds: Math.floor(Math.random() * 8)
-        //     }
       });
+      i++;
     }
     return freeSpacesArray;
   }
@@ -69,7 +80,7 @@ export class AppComponent implements OnInit {
   options: CalendarOptions = {
     freeSpacesArray: this.freeSpacesArrayGenarator(new Date(), new Date(2022, 11, 17)),
     firstCalendarDay: 0,
-    fromToDate: { from:new Date(2021, 9, 17), to:new Date(2021, 9, 22)},
+    fromToDate: { from:new Date(2021, 11, 17), to:new Date(2021, 11, 22)},
     format: 'dd/LL/yyyy',
     closeOnSelected: true,
     // minDate: addDays(new Date(), 5),
@@ -102,20 +113,22 @@ freeSpacesArrayGenarator1(start: Date, end: Date) {
       freeSpace: [
         {
           accomodationName: 'בקתה',
-          availableBeds: +Math.floor(Math.random() * 8).toString(),
+          availableBeds: +i.toString(),
         },
         {
           accomodationName: 'tent',
-          availableBeds: +Math.floor(Math.random() * 8).toString(),
+          availableBeds: +i.toString(),
         },
         {
           accomodationName: 'room',
-          availableBeds: +Math.floor(Math.random() * 8).toString(),
+          availableBeds: +i.toString(),
         },
       ],
     });
     i++;
   }
+  console.log(freeSpacesArrayTemp);
+  
   return freeSpacesArrayTemp;
 }
 }
