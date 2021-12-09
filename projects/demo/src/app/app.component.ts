@@ -38,15 +38,15 @@ export class AppComponent implements OnInit {
       freeSpace: [
         {
           accomodationName: 'cabin',
-          availableBeds: +i.toString()
+          availableBeds:  +Math.floor(Math.random() * 300).toString()
         },
         {
           accomodationName: 'tent',
-          availableBeds: +i.toString()
+          availableBeds:  +Math.floor(Math.random() * 300).toString()
         },
         {
           accomodationName: 'room',
-          availableBeds: +i.toString()
+          availableBeds:  +Math.floor(Math.random() * 300).toString()
         } 
       ]
     });
@@ -58,15 +58,15 @@ export class AppComponent implements OnInit {
         freeSpace: [
           {
             accomodationName: 'cabin',
-            availableBeds: +i.toString()
+            availableBeds:  +Math.floor(Math.random() * 300).toString()
           },
           {
             accomodationName: 'tent',
-            availableBeds: +i.toString()
+            availableBeds:  +Math.floor(Math.random() * 300).toString()
           },
           {
             accomodationName: 'room',
-            availableBeds: +i.toString()
+            availableBeds:  +Math.floor(Math.random() * 300).toString()
           } 
         ]
       });

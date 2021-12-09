@@ -57,15 +57,15 @@ function freeSpacesArrayGenarator(start: Date, end: Date) {
       freeSpace: [
         {
           accomodationName: 'cabin',
-          availableBeds: +Math.floor(Math.random() * 8).toString()
+          availableBeds: +Math.floor(Math.random() * 300).toString()
         },
         {
           accomodationName: 'tent',
-          availableBeds: +Math.floor(Math.random() * 8).toString()
+          availableBeds: +Math.floor(Math.random() * 300).toString()
         },
         {
           accomodationName: 'room',
-          availableBeds: +Math.floor(Math.random() * 8).toString()
+          availableBeds: +Math.floor(Math.random() * 300).toString()
         }
       ]
     });

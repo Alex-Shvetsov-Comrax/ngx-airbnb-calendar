@@ -71,7 +71,7 @@
             }"
             (click)="stopPropagation($event, i, 'secondary')"
           >
-            {{ day.day.freeSpace }} : פנוי
+          <span>פנוי :</span><span>{{ day.day.freeSpace }}</span>
           </div>
         </span>
       </div>
@@ -130,7 +130,7 @@
                 (fromToDate.to?.getDate() === day.date?.getDate() && fromToDate.to?.getMonth() === day.date?.getMonth())
             }"
           >
-            פנוי : {{ day.day.freeSpace }}
+          <span>פנוי :</span><span>{{ day.day.freeSpace }}</span>
           </div>
         </span>
       </div>
